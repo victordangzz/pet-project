@@ -1,0 +1,15 @@
+{
+  "heroTitle": "BẠN MUỐN HUẤN LUYỆN THÚ CƯNG CỦA BẠN?",
+  "courses": ["HUẤN LUYỆN CHÓ CƠ BẢN - 14 NGÀY KẾT NỐI", "HUẤN LUYỆN CHÓ 3 BƯỚC", "NÂNG CAO KỸ NĂNG"],
+
+  "boxes": [
+    {
+      "title": "CỬA HÀNG",
+      "desc": "PetCourse mang đến những món ăn dành cho thú cưng ..."
+    },
+    {
+      "title": "KHOÁ HỌC",
+      "desc": "Đến với chúng tôi các bạn sẽ được trải nghiệm ..."
+    }
+  ]
+}

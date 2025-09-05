@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap');
+
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #16006d; /* xanh dương đậm */
+  --color-secondary: #8e59ff; /* tím nhạt */
+  --font-dela: 'Dela Gothic One', sans-serif;
+  --font-sans: 'Dela Gothic One', sans-serif;
+}
+
+.wp-content {
+  max-width: 1366px;
+  width: calc(100% - 20px);
+  margin: 0 auto;
+}
+
