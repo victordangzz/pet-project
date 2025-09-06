@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import 'tailwindcss';
 
 @theme {
@@ -9,9 +9,38 @@
   --font-sans: 'Dela Gothic One', sans-serif;
 }
 
+.montserrat {
+  font-family: 'Montserrat', sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
 .wp-content {
   max-width: 1366px;
   width: calc(100% - 20px);
   margin: 0 auto;
 }
 
+/* Embla Carousel Styles */
+.embla {
+  overflow: hidden;
+  width: 100%;
+  cursor: grab;
+}
+
+.embla:active {
+  cursor: grabbing;
+}
+
+.embla__container {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  transform: translate3d(0, 0, 0);
+}

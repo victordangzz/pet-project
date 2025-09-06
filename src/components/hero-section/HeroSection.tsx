@@ -1,122 +1,114 @@
 import useEmblaCarousel from 'embla-carousel-react'
 import InfoBox from '../info-box'
 import { BsArrowUpRightCircleFill } from 'react-icons/bs'
+
 type HeroSectionProps = {
-  className?: string // có thể nhận thêm className nếu muốn custom ngoài
+  className?: string
 }
 
 const HeroSection = ({ className }: HeroSectionProps) => {
-  const [emblaRef] = useEmblaCarousel({ loop: true })
+  const [emblaRef] = useEmblaCarousel({ loop: true, align: 'center' })
 
   const slides = ['#1. HUẤN LUYỆN CHÓ CƠ BẢN - 14 NGÀY KẾT NỐI', '#2. HUẤN LUYỆN CHÓ 3 BƯỚC', '#3. NÂNG CAO KỸ NĂNG']
 
   return (
     <section
-      className={`flex flex-col relative z-0
-        md:grid md:[grid-template-columns:3fr_1fr_1fr] md:[grid-template-rows:4fr_1fr] md:h-screen
-        ${className}`}
+      className={`relative z-0 w-full flex flex-col lg:grid lg:grid-cols-[3fr_1fr_1fr] 
+        lg:grid-rows-[4fr_1fr] lg:h-screen ${className || ''}`}
     >
-      {/* Item 1: chiếm 2/3 rộng, 4/5 cao */}
-      <div
-        className='bg-primary h-[85vh] order-1 flex items-center 
-      justify-center md:col-start-1 md:row-start-1'
-      >
-        <div
-          className=' max-w-[1200px] h-full mx-auto flex flex-col
-         md:flex-row items-center justify-center gap-6 p-4 px-14 pt-20'
-        >
-          {/* Left content */}
-          <div className='flex flex-col md:items-start items-center justify-center text-white md:flex-1 order-2 md:order-1 mb-4'>
-            <h2 className='text-[20px] md:text-[40px] font-sans leading-snug  text-center md:text-left uppercase'>
+      {/* Main content area */}
+      <div className='order-1 pl-5 pt-4 md:pl-10 md:pt-6 lg:pl-28 h-[85vh] bg-primary flex items-center justify-center lg:col-start-1 lg:row-start-1'>
+        <div className='mx-auto flex h-full max-w-7xl flex-col items-center justify-center gap-6 pt-20 lg:flex-row '>
+          {/* Text content */}
+          <div className='order-2 mr-2 mb-4 flex flex-col items-center justify-center text-white lg:order-1 lg:flex-[40%] lg:items-start'>
+            <h2 className='text-center text-xl font-sans uppercase leading-snug lg:text-left lg:text-4xl'>
               Bạn muốn huấn luyện thú cưng của bạn?
             </h2>
-            <button className='bg-[#F7613E] hover:bg-[#E55A35] mt-6 text-white font-semibold px-6 py-3 rounded-lg w-fit'>
+            <button className='mt-6 w-fit rounded-lg bg-[#F7613E] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#E55A35]'>
               Xem ngay
             </button>
           </div>
 
-          {/* Right image */}
-          <div className='md:flex-1 order-1 md:order-2 h-full flex items-end'>
+          {/* Hero image */}
+          <div className='order-1 flex items-end  lg:order-2 lg:flex-[60%]'>
             <img
               src='/images/dog-section-1.png'
-              alt='Dog'
-              className='md:w-full h-auto md:min-h-[280px] md:max-h-[680px] md:min-w-[450px] md:max-w-[450px] object-contain'
+              alt='Dog training hero image'
+              className='h-auto object-contain w-52 lg:w-[400px]'
             />
           </div>
         </div>
       </div>
 
-      {/* Item 3: chiếm 1/3 rộng, 4/5 cao */}
-      <div
-        className='bg-[#3843D0] order-3 md:col-start-2 md:col-span-2 
-      md:row-start-1  h-full md:overflow-hidden'
-      >
-        <div className='flex flex-col w-full h-full md:pt-36'>
-          <div className='flex justify-center md:justify-start md:pl-16 mt-4'>
-            <img src='/images/review-section-3.png' alt='Review section 3' className='max-w-[270px] w-full' />
+      {/* Secondary content area */}
+      <div className='order-3 h-full bg-[#3843D0]  lg:col-span-2 lg:col-start-2 lg:row-start-1 lg:overflow-hidden'>
+        <div className='flex h-full w-full flex-col lg:pt-24'>
+          <div className='mt-2 flex justify-center lg:justify-start lg:pl-16'>
+            <img src='/images/review-section-3.png' alt='Customer reviews showcase' className=' lg:w-[230px]' />
           </div>
-          <div className='flex items-center justify-center mt-16 flex-1'>
+          <div className='mt-12 flex flex-1 items-center justify-center'>
             <img
               src='/images/dog-section-3.png'
-              alt='Dog section 3'
-              className='md:max-w-[420px] md:h-full object-contain md:max-h-[500px] md:min-h-[280px] max-w-[230px] h-full'
+              alt='Dog training showcase'
+              className='w-[230px] object-cover lg:w-[400px]'
             />
           </div>
         </div>
       </div>
 
-      {/* Item 2: chiếm 2/3 rộng, 1/5 cao */}
-      <div className='bg-secondary h-[15vh] order-2 flex items-center justify-center text-white md:text-[22px] md:col-start-1 md:row-start-2 w-full'>
-        {/* Mobile: slider, Desktop: text list */}
+      {/* Course list section */}
+      <div className='order-2 flex h-[15vh] pl-5 pt-4 md:pl-10 md:pt-6 lg:pl-28 w-full items-center justify-center bg-secondary text-white lg:col-start-1 lg:row-start-2 lg:text-xl'>
         <div className='w-full'>
-          {/* Desktop: text list */}
-          <div className='hidden md:block'>
-            <div className='flex'>
-              <ol className='text-left text-[20px] md:text-[22px] '>
+          {/* Desktop: static list */}
+          <div className='hidden lg:block'>
+            <div className='flex items-start'>
+              <ol className='text-left text-lg lg:text-xl montserrat font-semibold '>
                 <li>#1. HUẤN LUYỆN CHÓ CƠ BẢN - 14 NGÀY KẾT NỐI</li>
                 <li>#2. HUẤN LUYỆN CHÓ 3 BƯỚC</li>
                 <li>#3. NÂNG CAO KỸ NĂNG</li>
               </ol>
-              <BsArrowUpRightCircleFill size={24} className='ml-4 mt-1' />
+              <BsArrowUpRightCircleFill size={24} className='ml-4 mt-1 flex-shrink-0' />
             </div>
           </div>
-          {/* Mobile: slider */}
-          <div className='block md:hidden w-full'>
+
+          {/* Mobile: carousel */}
+          <div className='block lg:hidden w-full px-4'>
             <div className='embla' ref={emblaRef}>
-              <div className='embla__container flex'>
+              <div className='embla__container'>
                 {slides.map((slide, index) => (
-                  <div key={index} className='embla__slide flex-[0_0_100%] min-w-0'>
-                    <div className='w-full text-center text-base font-semibold min-h-[60px] flex flex-col items-center justify-center px-4'>
-                      <span>{slide}</span>
+                  <div key={index} className='embla__slide'>
+                    <div className='flex min-h-[60px] w-full flex-col items-center justify-center text-center text-sm font-semibold'>
+                      <span className='break-words px-2'>{slide}</span>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-            {/* Dots */}
-            <div className='flex justify-center gap-2 mt-2'>
-              <span className='w-8 h-1 bg-white rounded-full inline-block'></span>
-              <span className='w-6 h-1 border border-white rounded-full inline-block'></span>
-              <span className='w-6 h-1 border border-white rounded-full inline-block'></span>
+
+            {/* Pagination dots */}
+            <div className='mt-2 flex justify-center gap-2'>
+              <span className='inline-block h-1 w-8 rounded-full bg-white'></span>
+              <span className='inline-block h-1 w-6 rounded-full border border-white'></span>
+              <span className='inline-block h-1 w-6 rounded-full border border-white'></span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Item 4: chiếm 1/6 rộng, 1/5 cao */}
+      {/* Store info box */}
       <InfoBox
         title='CỬA HÀNG'
         description='PetCourse mang đến những món ăn dành cho thú cưng ...'
         backgroundColor='#fa8c16'
-        className='order-4 md:col-start-2 md:row-start-2'
+        className='order-4 lg:col-start-2 lg:row-start-2 h-[15vh]'
       />
 
-      {/* Item 5: chiếm 1/6 rộng, 1/5 cao */}
+      {/* Course info box */}
       <InfoBox
         title='KHÓA HỌC'
         description='Đến với chúng tôi các bạn sẽ được trải nghiệm những khóa học chuyên nghiệp nhất.'
         backgroundColor='#13c2c2'
-        className='order-5 md:col-start-3 md:row-start-2'
+        className='order-5 lg:col-start-3 lg:row-start-2 h-[15vh]'
       />
     </section>
   )
