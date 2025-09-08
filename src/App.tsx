@@ -1,6 +1,7 @@
-import HomePage from './pages/home/HomePage'
+import Router from './router.tsx'
 function App() {
-  return <HomePage />
+  const route = Router()
+  return route
 }
 
 export default App

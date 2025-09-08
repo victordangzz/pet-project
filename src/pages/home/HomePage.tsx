@@ -1,14 +1,15 @@
 import HeroSection from '@/components/hero-section'
-import Header from '@/components/header/Header'
 import CourseSlider from '@/components/course-slider'
 import CourseBenefits from '@/components/benefits-section'
+import HotDeals from '@/components/hot-deals/HotDeals'
+
 const HomePage = () => {
   return (
     <div className='w-full min-h-screen '>
-      <Header />
       <HeroSection />
       <CourseSlider />
       <CourseBenefits />
+      <HotDeals />
     </div>
   )
 }

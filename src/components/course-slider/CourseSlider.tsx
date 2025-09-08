@@ -1,31 +1,10 @@
 import useEmblaCarousel from 'embla-carousel-react'
 import CourseCard from './CourseCard'
 import type { Course } from './types'
-
-const courses: Course[] = [
-  {
-    title: 'Huấn luyện chó cơ bản: 14 ngày kết nối',
-    image: '/images/dog-slider.png'
-  },
-  {
-    title: 'Huấn luyện chó 3 bước',
-    image: '/images/dog-slider.png'
-  },
-  {
-    title: 'Nâng cao kỹ năng',
-    image: '/images/dog-slider.png'
-  },
-  {
-    title: 'COMING SOON',
-    image: '/images/dog-slider.png'
-  },
-  {
-    title: 'COMING SOON',
-    image: '/images/dog-slider.png'
-  }
-]
+import { coursesData } from '../../data/courses'
 
 export default function CourseSlider() {
+  const courses: Course[] = coursesData
   const [emblaRef] = useEmblaCarousel({ loop: false, align: 'start' })
 
   return (

@@ -16,7 +16,9 @@ function Header() {
           {/* Left group: Logo + Navigation */}
           <div className='flex items-center flex-shrink-0'>
             <div className='lg:mr-[110px]'>
-              <img src='/images/Logo.png' alt='petCourse Logo' className='h-8 md:h-10 lg:h-12' />
+              <a href='/'>
+                <img src='/images/Logo.png' alt='petCourse Logo' className='h-8 md:h-10 lg:h-12' />
+              </a>
             </div>
 
             <nav className='hidden lg:flex items-center gap-6 lg:gap-10'>

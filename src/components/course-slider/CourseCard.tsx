@@ -8,9 +8,13 @@ interface CourseCardProps {
 
 export default function CourseCard({ course, onClick }: CourseCardProps) {
   return (
-    <div className='group' onClick={onClick}>
+    <div className='group hover:border-primary' onClick={onClick}>
       <div className='relative w-[245px] h-[180px] lg:w-[310px] lg:h-[230px] rounded-xl overflow-hidden cursor-pointer'>
-        <img src={course.image} alt={course.title} className='w-full h-full object-cover rounded-xl' />
+        <img
+          src={course.image}
+          alt={course.title}
+          className='w-full h-full object-cover rounded-xl hover:border-primary'
+        />
         {/* Nút play chèn vào góc */}
         <button
           className='
@@ -22,7 +26,7 @@ export default function CourseCard({ course, onClick }: CourseCardProps) {
           <FaPlay className='text-[14px] lg:text-[20px]' />
         </button>
       </div>
-      <p className='mt-2 text-center w-[245px] text-sm lg:text-[24px] montserrat'>{course.title}</p>
+      <p className='mt-2 text-center w-[245px] hover:font-bold text-sm lg:text-[24px] montserrat'>{course.title}</p>
     </div>
   )
 }

@@ -4,3 +4,10 @@ export type BenefitItemProps = {
   active?: boolean
   onClick: () => void
 }
+
+export interface BenefitSlide {
+  img: string
+  caption: string
+  benefit: string
+  icon: string
+}
