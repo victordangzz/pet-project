@@ -1,13 +1,46 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { PiUserCircle } from 'react-icons/pi'
 import { IoClose, IoMenu } from 'react-icons/io5'
 import { HiOutlineBuildingStorefront } from 'react-icons/hi2'
-import { LuBookText, LuUserRound } from 'react-icons/lu'
+import { LuBookText, LuUserRound, LuLogOut, LuUser } from 'react-icons/lu'
 import { TbPhoneRinging } from 'react-icons/tb'
-
+import { Link } from 'react-router-dom'
+import { useContext } from 'react'
+import { AppContext } from '@/contexts/app-context'
+import {  getRefreshTokenFromLS } from '@/utils/auth'
+import { useMutation } from '@tanstack/react-query'
+import userApi from '@/apis/user.api'
 function Header() {
   const [lang, setLang] = useState<'vi' | 'en'>('vi')
   const [menuOpen, setMenuOpen] = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const { isAuthenticated, setIsAuthenticated, setProfile, profile } = useContext(AppContext)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const refresh_token = getRefreshTokenFromLS()
+  const logoutMutation = useMutation({
+    mutationFn: () => userApi.logout({ refresh_token }),
+    onSuccess: () => {
+      setIsAuthenticated(false)
+      setProfile(null)
+    }
+  })
+  const handleLogout = () => {
+    logoutMutation.mutate()
+    setDropdownOpen(false)
+  }
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   return (
     <>
@@ -15,24 +48,30 @@ function Header() {
         <div className='flex items-center justify-between h-full w-full'>
           {/* Left group: Logo + Navigation */}
           <div className='flex items-center flex-shrink-0'>
-            <div className='lg:mr-[110px]'>
-              <a href='/'>
-                <img src='/images/Logo.png' alt='petCourse Logo' className='h-8 md:h-10 lg:h-12' />
-              </a>
+            <div className='lg:mr-[60px] xl:mr-[110px]'>
+              <Link to='/'>
+                <img src='/images/Logo.png' alt='petCourse Logo' className='h-8 md:h-8 lg:h-10 xl:h-12' />
+              </Link>
             </div>
 
-            <nav className='hidden lg:flex items-center gap-6 lg:gap-10'>
-              <a href='/store' className='text-white font-bold hover:text-gray-200 transition-colors'>
+            <nav className='hidden lg:flex items-center gap-6 lg:gap-6 xl:gap-10'>
+              <Link
+                to='/store'
+                className='text-white font-bold lg:text-sm xl:text-[16px] hover:text-gray-200 transition-colors'
+              >
                 Cửa hàng
-              </a>
-              <a href='/courses' className='text-white font-bold hover:text-gray-200 transition-colors'>
+              </Link>
+              <Link
+                to='/courses'
+                className='text-white font-bold lg:text-sm xl:text-[16px] hover:text-gray-200 transition-colors'
+              >
                 Khóa học
-              </a>
+              </Link>
             </nav>
           </div>
 
           {/* Right group: Contact + Language + User (desktop only) */}
-          <div className='hidden lg:flex items-center gap-6 lg:gap-9'>
+          <div className='hidden lg:flex items-center gap-6 xl:gap-9'>
             <a
               href='/contact'
               className='bg-[#FF6B35] text-white px-4 lg:px-9 py-2 rounded-3xl 
@@ -42,15 +81,55 @@ function Header() {
             </a>
             <button
               onClick={() => setLang(lang === 'vi' ? 'en' : 'vi')}
-              className='bg-[#D4FF4F] text-[#18006A] font-bold rounded-full w-10 h-10 lg:w-12 lg:h-12 flex items-center justify-center text-sm lg:text-base shadow-md hover:bg-[#c9f542] transition-colors'
+              className='bg-[#D4FF4F] text-[#18006A] font-bold rounded-full lg:w-10 lg:h-10 xl:w-12 xl:h-12 flex items-center justify-center text-sm lg:text-base shadow-md hover:bg-[#c9f542] transition-colors'
             >
               {lang === 'vi' ? 'VN' : 'EN'}
             </button>
-            <PiUserCircle
-              size={48}
-              color='#fff'
-              className='cursor-pointer hover:opacity-80 transition-opacity lg:w-[52px] lg:h-[52px]'
-            />
+
+            {/* User Authentication Section */}
+            {isAuthenticated && profile ? (
+              <div className='relative' ref={dropdownRef}>
+                <button onClick={() => setDropdownOpen(!dropdownOpen)} className='focus:outline-none'>
+                  <PiUserCircle
+                    size={48}
+                    color='#fff'
+                    className='cursor-pointer hover:opacity-80 transition-opacity lg:w-[52px] lg:h-[52px]'
+                  />
+                </button>
+
+                {/* Dropdown Menu */}
+                {dropdownOpen && (
+                  <div className='absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50'>
+                    <div className='px-4 py-2 border-b border-gray-200'>
+                      <p className='text-sm text-gray-600'>Xin chào,</p>
+                      <p className='font-semibold text-gray-800 truncate'>{profile.email}</p>
+                    </div>
+                    <Link
+                      to='/profile'
+                      className='flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors'
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      <LuUser size={16} />
+                      Hồ sơ cá nhân
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className='w-full flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors text-left'
+                    >
+                      <LuLogOut size={16} />
+                      Đăng xuất
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                to='/login'
+                className='bg-white text-[#18006A] font-bold px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors text-sm lg:text-base'
+              >
+                Login
+              </Link>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -108,13 +187,47 @@ function Header() {
                   <span>Ngôn ngữ: {lang === 'vi' ? 'Tiếng Việt' : 'English'}</span>
                 </div>
 
-                <a
-                  href='/login'
-                  className='flex items-center gap-3 text-lg font-bold hover:text-gray-200 transition-colors'
-                >
-                  <LuUserRound size={24} />
-                  Đăng nhập/ Đăng ký
-                </a>
+                {/* Mobile User Section */}
+                {isAuthenticated && profile ? (
+                  <>
+                    <div className='border-t border-white border-opacity-20 pt-4 mt-4'>
+                      <div className='flex items-center gap-3 text-lg font-bold mb-4'>
+                        <LuUserRound size={24} />
+                        <div>
+                          <p className='text-sm text-gray-200'>Xin chào,</p>
+                          <p className='text-base truncate'>{profile.email}</p>
+                        </div>
+                      </div>
+                      <Link
+                        to='/profile'
+                        className='flex items-center gap-3 text-lg font-bold hover:text-gray-200 transition-colors mb-3'
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        <LuUser size={24} />
+                        Hồ sơ cá nhân
+                      </Link>
+                      <button
+                        onClick={() => {
+                          handleLogout()
+                          setMenuOpen(false)
+                        }}
+                        className='flex items-center gap-3 text-lg font-bold hover:text-gray-200 transition-colors w-full text-left'
+                      >
+                        <LuLogOut size={24} />
+                        Đăng xuất
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <Link
+                    to='/login'
+                    className='flex items-center gap-3 text-lg font-bold hover:text-gray-200 transition-colors'
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <LuUserRound size={24} />
+                    Đăng nhập/ Đăng ký
+                  </Link>
+                )}
 
                 <a
                   href='/contact'

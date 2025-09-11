@@ -1,0 +1,50 @@
+const _NO_ROUTE = ''
+export const NOT_FOUN_ROUTE = '*'
+export const LOGIN_ROUTE_DEFAULT = '/login'
+const buildPath = (role: string | null) => ({
+  LOGIN: LOGIN_ROUTE_DEFAULT,
+  HOME: '/',
+  CUSTOMER: '/customer',
+  CUSTOMER_CREATE: '/customer/create',
+  CUSTOMER_UPDATE_PERSONAL: '/customer/update-personal/:customerId',
+  CUSTOMER_UPDATE_COMPANY: '/customer/update-company/:customerId',
+  ACTIVITIES: '/activities',
+  ACTIVITIES_CREATE: '/activities/create',
+  ACTIVITIES_UPDATE: '/activities/update/:activityId',
+  PERFORMANCE: '/performance',
+  PERFORMANCE_CREATE: '/performance/create',
+  PERFORMANCE_UPDATE: '/performance/update/:performanceId',
+  USER: '/user',
+  USER_CHANGE_PASSWORD: '/user/change-password',
+  USER_DETAIL: role === 'SuperAdmin' ? '/user/:userId' : _NO_ROUTE,
+  USER_CREATE: role === 'SuperAdmin' ? '/user/create' : _NO_ROUTE,
+  USER_UPDATE: '/user/profile',
+  REVENUE_CREATE: '/revenue/create',
+  REVENUE_UPDATE: '/revenue/update/:revenueId',
+  PAGE_DOCUMENT: '/documents',
+  CREATE_DOCUMENT: '/documents/create',
+  UPDATE_DOCUMENT: '/documents/:documentId',
+  PAGE_NGHIPHEP: '/personal-leave',
+  CREATE_NGHIPHEP: '/personal-leave/create',
+  UPDATE_NGHIPHEP: '/personal-leave/:personalLeaveId',
+  PAGE_CHAMCONG: '/roll-call',
+  CREATE_CHAMCONG: '/roll-call/create',
+  UPDATE_CHAMCONG: '/roll-call/:documentId',
+  PAGE_QUYETTOAN: '/settlement',
+  CREATE_QUYETTOAN: '/settlement/create',
+  UPDATE_QUYETTOAN: '/settlement/:documentId',
+  PAGE_OFFER_PAYMENT: '/offer-payment',
+  CREATE_OFFER_PAYMENT: '/offer-payment/create',
+  UPDATE_OFFER_PAYMENT: '/offer-payment/:offerPaymentId',
+  PAGE_OFFER_TEMP_PAYMENT: '/offer-temp-payment',
+  CREATE_OFFER_TEMP_PAYMENT: '/offer-temp-payment/create',
+  UPDATE_OFFER_TEMP_PAYMENT: '/offer-temp-payment/:offerTempPaymentId',
+  PAGE_RECOMMEND_REFUND: '/recommend-refund',
+  CREATE_RECOMMEND_REFUND: '/recommend-refund/create',
+  UPDATE_RECOMMEND_REFUND: '/recommend-refund/:recommendRefundId',
+  CREATE_PERMISSION:
+    import.meta.env.VITE_PERMISSION_DEBUG === 'true' && role === 'SuperAdmin' ? '/permission' : _NO_ROUTE,
+  UPDATE_PERMISSION: role === 'SuperAdmin' ? '/permission/:permissionId' : _NO_ROUTE
+})
+
+export default buildPath

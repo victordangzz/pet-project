@@ -28,7 +28,7 @@ export default function CourseBenefits() {
   )
 
   return (
-    <section className='bg-secondary text-white  px-5 md:px-12 lg:px-30'>
+    <section className='bg-[#8e59ff] text-white  px-5 md:px-12 lg:px-30'>
       <div className='mx-auto text-center pt-8 md:pt-12'>
         {/* Avatar */}
         <img

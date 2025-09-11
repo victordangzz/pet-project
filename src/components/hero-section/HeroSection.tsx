@@ -103,31 +103,31 @@ const HeroSection = ({ className }: HeroSectionProps) => {
 
       {/* Course list section */}
       <div
-        className='order-2 flex h-[15vh] pl-5 pt-4 md:pl-10 md:pt-6 lg:pl-28 w-full items-center justify-center text-white lg:col-start-1 lg:row-start-2 lg:text-xl'
+        className='order-2 flex pb-6 h-[15vh] pt-4 md:pt-6 lg:pl-28 w-full items-center justify-center text-white lg:col-start-1 lg:row-start-2 lg:text-xl'
         style={{ backgroundColor: HERO_COLORS.secondary }}
       >
         <div className='w-full' role='region' aria-label='Danh sách khóa học'>
           {/* Desktop: static list */}
           <div className='hidden lg:block'>
             <div className='flex items-start'>
-              <ol className='text-left text-lg lg:text-xl montserrat font-semibold'>
+              <ol className='text-left lg:text-lg text-[14px]  montserrat font-semibold'>
                 {COURSES.map((course, index) => (
                   <li key={course.id}>
                     #{index + 1}. {course.title}
                   </li>
                 ))}
               </ol>
-              <BsArrowUpRightCircleFill size={24} className='ml-4 mt-1 flex-shrink-0' aria-hidden='true' />
+              <BsArrowUpRightCircleFill size={24} className='ml-6 mt-1 flex-shrink-0' aria-hidden='true' />
             </div>
           </div>
 
           {/* Mobile: carousel */}
-          <div className='block lg:hidden w-full px-4'>
+          <div className='block lg:hidden w-full px-4 pb-2'>
             <div className='embla' ref={emblaRef} role='region' aria-label='Carousel khóa học' aria-live='polite'>
               <div className='embla__container'>
                 {COURSES.map((course, index) => (
                   <div key={course.id} className='embla__slide'>
-                    <div className='flex min-h-[60px] w-full flex-col items-center justify-center text-center text-sm font-semibold'>
+                    <div className='flex  w-full flex-col items-center justify-center text-center text-sm font-semibold'>
                       <span className='break-words px-2'>
                         #{index + 1}. {course.title}
                       </span>
@@ -138,7 +138,7 @@ const HeroSection = ({ className }: HeroSectionProps) => {
             </div>
 
             {/* Pagination dots */}
-            <div className='mt-2 flex justify-center gap-2' role='tablist' aria-label='Điều hướng carousel'>
+            <div className='mt-2 md:pt-4 flex justify-center gap-2' role='tablist' aria-label='Điều hướng carousel'>
               {COURSES.map((_, index) => (
                 <button
                   key={index}
@@ -162,7 +162,7 @@ const HeroSection = ({ className }: HeroSectionProps) => {
       {/* Store info box */}
       <InfoBox
         title='CỬA HÀNG'
-        description='PetCourse mang đến những món ăn dành cho thú cưng ...'
+        description='PetCourse mang đến những món ăn dành ...'
         backgroundColor='#fa8c16'
         className='order-4 lg:col-start-2 lg:row-start-2 h-[15vh]'
       />
@@ -170,7 +170,7 @@ const HeroSection = ({ className }: HeroSectionProps) => {
       {/* Course info box */}
       <InfoBox
         title='KHÓA HỌC'
-        description='Đến với chúng tôi các bạn sẽ được trải nghiệm những khóa học chuyên nghiệp nhất.'
+        description='Đến với chúng tôi các bạn sẽ được trải nghiệm...'
         backgroundColor='#13c2c2'
         className='order-5 lg:col-start-3 lg:row-start-2 h-[15vh]'
       />
