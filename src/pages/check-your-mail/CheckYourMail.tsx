@@ -7,13 +7,18 @@ const CheckYourMail = () => {
   const navigate = useNavigate()
   const email = location.state?.email
   const message = location.state?.message
+  const type = location.state?.type || 'verification' // 'verification' hoặc 'forgot-password'
 
   useEffect(() => {
-    // If no email in state, redirect to register page
+    // If no email in state, redirect to appropriate page
     if (!email) {
-      navigate('/register')
+      if (type === 'forgot-password') {
+        navigate('/forgot-password')
+      } else {
+        navigate('/register')
+      }
     }
-  }, [email, navigate])
+  }, [email, navigate, type])
 
   if (!email) {
     return (
@@ -55,7 +60,11 @@ const CheckYourMail = () => {
 
           {/* Email info */}
           <div className='mb-6'>
-            <p className='text-gray-600 mb-2'>Chúng tôi đã gửi email xác thực đến:</p>
+            <p className='text-gray-600 mb-2'>
+              {type === 'forgot-password'
+                ? 'Chúng tôi đã gửi link reset mật khẩu đến:'
+                : 'Chúng tôi đã gửi email xác thực đến:'}
+            </p>
             <p className='text-lg font-semibold text-[#1E40AF] bg-gray-100 py-2 px-4 rounded-lg'>{email}</p>
           </div>
 
@@ -64,7 +73,7 @@ const CheckYourMail = () => {
             <h3 className='font-semibold text-[#1E40AF] mb-2'>Hướng dẫn:</h3>
             <ul className='text-sm text-gray-700 text-left space-y-1'>
               <li>• Kiểm tra hộp thư đến của bạn</li>
-              <li>• Nhấp vào liên kết xác thực trong email</li>
+              <li>• Nhấp vào liên kết {type === 'forgot-password' ? 'reset mật khẩu' : 'xác thực'} trong email</li>
               <li>• Nếu không thấy email, hãy kiểm tra thư mục spam</li>
               <li>• Email có thể mất vài phút để đến</li>
             </ul>
@@ -76,14 +85,14 @@ const CheckYourMail = () => {
               onClick={() => window.location.reload()}
               className='w-full bg-[#1E40AF] text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors'
             >
-              Tôi đã xác thực email
+              {type === 'forgot-password' ? 'Tôi đã reset mật khẩu' : 'Tôi đã xác thực email'}
             </button>
 
             <button
-              onClick={() => navigate('/register')}
+              onClick={() => navigate(type === 'forgot-password' ? '/forgot-password' : '/register')}
               className='w-full bg-white border-2 border-[#FF6B35] text-[#FF6B35] py-3 px-4 rounded-lg font-medium hover:bg-orange-50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors'
             >
-              Gửi lại email xác thực
+              {type === 'forgot-password' ? 'Gửi lại email reset' : 'Gửi lại email xác thực'}
             </button>
           </div>
 

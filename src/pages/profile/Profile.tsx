@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useMutation } from '@tanstack/react-query'
 import { AppContext } from '@/contexts/app-context'
 import { AuthInput } from '@/components/auth-input'
-import { LuUser, LuMail, LuSave, LuX, LuPenTool } from 'react-icons/lu'
+import { LuMail, LuSave, LuX, LuPenTool } from 'react-icons/lu'
 import { Lock } from 'lucide-react'
 
 interface ChangePasswordForm {

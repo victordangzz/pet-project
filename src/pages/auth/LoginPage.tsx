@@ -143,6 +143,12 @@ function LoginPage() {
             </div>
 
             <div className='text-center'>
+              <Link to='/forgot-password' className='text-[#1E40AF] hover:text-blue-700 text-sm font-medium'>
+                Quên mật khẩu?
+              </Link>
+            </div>
+
+            <div className='text-center'>
               <p className='text-gray-600 italic mb-4'>Hoặc</p>
               <Link
                 to='/register'

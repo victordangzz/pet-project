@@ -7,10 +7,16 @@ import { TbPhoneRinging } from 'react-icons/tb'
 import { Link } from 'react-router-dom'
 import { useContext } from 'react'
 import { AppContext } from '@/contexts/app-context'
-import {  getRefreshTokenFromLS } from '@/utils/auth'
+import { getRefreshTokenFromLS } from '@/utils/auth'
 import { useMutation } from '@tanstack/react-query'
 import userApi from '@/apis/user.api'
-function Header() {
+
+type HeaderProps = {
+  variant?: 'main' | 'sub'
+}
+
+function Header({ variant = 'main' }: HeaderProps) {
+  const isMain = variant === 'main'
   const [lang, setLang] = useState<'vi' | 'en'>('vi')
   const [menuOpen, setMenuOpen] = useState(false)
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -50,23 +56,20 @@ function Header() {
           <div className='flex items-center flex-shrink-0'>
             <div className='lg:mr-[60px] xl:mr-[110px]'>
               <Link to='/'>
-                <img src='/images/Logo.png' alt='petCourse Logo' className='h-8 md:h-8 lg:h-10 xl:h-12' />
+                <img
+                  src={isMain ? '/images/Logo.png' : 'images/logo-bg-white.png'}
+                  alt='petCourse Logo'
+                  className='h-8 md:h-8 lg:h-10 xl:h-12'
+                />
               </Link>
             </div>
 
-            <nav className='hidden lg:flex items-center gap-6 lg:gap-6 xl:gap-10'>
-              <Link
-                to='/store'
-                className='text-white font-bold lg:text-sm xl:text-[16px] hover:text-gray-200 transition-colors'
-              >
-                Cửa hàng
-              </Link>
-              <Link
-                to='/courses'
-                className='text-white font-bold lg:text-sm xl:text-[16px] hover:text-gray-200 transition-colors'
-              >
-                Khóa học
-              </Link>
+            <nav
+              className={` ${isMain ? 'text-white hover:text-gray-200' : 'text-black'} hidden lg:flex items-center gap-6 lg:gap-6 xl:gap-10  font-bold lg:text-[18px] xl:text-[16px] transition-colors`}
+            >
+              <Link to='/store'>Cửa hàng</Link>
+              <Link to='/courses'>Khóa học</Link>
+              <Link to='/blog'>Blog</Link>
             </nav>
           </div>
 
@@ -92,8 +95,7 @@ function Header() {
                 <button onClick={() => setDropdownOpen(!dropdownOpen)} className='focus:outline-none'>
                   <PiUserCircle
                     size={48}
-                    color='#fff'
-                    className='cursor-pointer hover:opacity-80 transition-opacity lg:w-[52px] lg:h-[52px]'
+                    className={` ${isMain ? 'text-white' : 'text-[#064BB5]'} cursor-pointer hover:opacity-80 transition-opacity lg:w-[52px] lg:h-[52px]`}
                   />
                 </button>
 
