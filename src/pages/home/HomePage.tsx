@@ -1,6 +1,6 @@
-import HeroSection from '@/components/hero-section'
-import CourseSlider from '@/components/course-slider'
-import CourseBenefits from '@/components/benefits-section'
+import HeroSection from '@/components/home/hero-section'
+import CourseSlider from '@/components/home/course-slider/CourseSlider'
+import CourseBenefits from '@/components/home/benefits-section'
 import HotDeals from '@/components/hot-deals/HotDeals'
 
 const HomePage = () => {

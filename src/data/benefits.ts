@@ -1,4 +1,4 @@
-import type { BenefitSlide } from '../components/benefits-section/types'
+import type { BenefitSlide } from '../components/home/benefits-section/types'
 
 export const benefitsData: BenefitSlide[] = [
   {

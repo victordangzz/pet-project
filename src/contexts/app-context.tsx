@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from 'react'
 import type { User } from '@/types/user'
 import { getAccessTokenFromLS, getProfileFromLS, eventTargetLS } from '@/utils/auth'
 import { useNavigate } from 'react-router-dom'
+import buildPath from '@/constants/path'
 
 interface AppContextInterface {
   isAuthenticated: boolean
@@ -9,16 +10,17 @@ interface AppContextInterface {
   profile: User | null
   setProfile: React.Dispatch<React.SetStateAction<User | null>>
   reset: () => void
-  //path: ReturnType<typeof buildPath>
+  path: ReturnType<typeof buildPath>
 }
+const initialProfile = getProfileFromLS()
 
 const initialAppContext: AppContextInterface = {
   isAuthenticated: Boolean(getAccessTokenFromLS()),
   setIsAuthenticated: () => null,
   profile: getProfileFromLS(),
   setProfile: () => null,
-  reset: () => null
-  //path: buildPath(initialProfile?.role || null)
+  reset: () => null,
+  path: buildPath(initialProfile?.verify || null)
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -28,7 +30,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate()
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(initialAppContext.isAuthenticated)
   const [profile, setProfile] = useState<User | null>(initialAppContext.profile)
-  //const [path, setPath] = useState(buildPath(profile?.role || null))
+  const [path, setPath] = useState(buildPath(profile?.verify || null))
 
   // Listen to localStorage changes
   useEffect(() => {
@@ -67,10 +69,10 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [])
 
-  // useEffect(() => {
-  //   // Mỗi khi profile thay đổi → cập nhật path
-  //   setPath(buildPath(profile?.role ?? null))
-  // }, [profile])
+  useEffect(() => {
+    // Mỗi khi profile thay đổi → cập nhật path
+    setPath(buildPath(profile?.verify ?? null))
+  }, [profile])
 
   const reset = () => {
     setIsAuthenticated(false)
@@ -79,7 +81,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     navigate('/login', { replace: true })
   }
   return (
-    <AppContext.Provider value={{ isAuthenticated, setIsAuthenticated, profile, setProfile, reset }}>
+    <AppContext.Provider value={{ isAuthenticated, setIsAuthenticated, path, profile, setProfile, reset }}>
       {children}
     </AppContext.Provider>
   )

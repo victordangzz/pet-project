@@ -1,7 +1,10 @@
+import CarouselBlogs from '@/components/home/carousel-blogs'
+import BlogSection from '@/components/blog'
 const BlogPage = () => {
   return (
-    <div className='bg-white w-full min-h-screen flex items-center justify-center'>
-      <span className='text-black text-6xl font-bold'>Blog Page</span>
+    <div className='w-full min-h-screen '>
+      <CarouselBlogs />
+      <BlogSection />
     </div>
   )
 }
